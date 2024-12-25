@@ -1,5 +1,6 @@
 package com.social.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,9 +25,15 @@ public class Post {
 
     private LocalDateTime createdAt;
 
-    public Post() {}
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
 
-    public Post(Integer id, String caption, String image, String video, User user, List<User> liked, LocalDateTime createdAt) {
+    public Post() {
+
+    }
+
+    public Post(Integer id, String caption, String image, String video, User user, List<User> liked, LocalDateTime createdAt, List<Comment> comments) {
+      super();
         this.id = id;
         this.caption = caption;
         this.image = image;
@@ -34,6 +41,15 @@ public class Post {
         this.user = user;
         this.liked = liked;
         this.createdAt = createdAt;
+        this.comments = comments;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     // Getter and setter for 'id'
