@@ -1,5 +1,6 @@
 package com.social.controller;
 
+import com.social.exception.UserException;
 import com.social.models.User;
 import com.social.repository.UserRepository;
 import com.social.service.UserService;
@@ -30,14 +31,14 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{userId}")
-    public User getUserById(@PathVariable("userId") Integer id) throws Exception {
+    public User getUserById(@PathVariable("userId") Integer id) throws UserException {
         User user = userService.findUserById(id);
         return user;
     }
 
 
     @PutMapping("/api/users")
-    public User updateUser(@RequestHeader("Authorization")String jwt, @RequestBody User user) throws Exception {
+    public User updateUser(@RequestHeader("Authorization")String jwt, @RequestBody User user) throws UserException {
 
         User reqUser = userService.findUserByJwt(jwt);
 
@@ -48,7 +49,7 @@ public class UserController {
 
 
     @PutMapping("/api/users/follow/{userId2}")
-    public User followUserHandler(@RequestHeader("Authorization")String jwt, @PathVariable Integer userId2) throws Exception {
+    public User followUserHandler(@RequestHeader("Authorization")String jwt, @PathVariable Integer userId2) throws UserException {
 
         User reqUser = userService.findUserByJwt(jwt);
         User user = userService.followUser(reqUser.getId(), userId2);

@@ -1,6 +1,7 @@
 package com.social.service;
 
 import com.social.config.JwtProvider;
+import com.social.exception.UserException;
 import com.social.models.User;
 import com.social.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -35,13 +36,13 @@ public class UserServiceImplementation implements UserService {
 
 
     @Override
-    public User findUserById(Integer userId) throws Exception {
+    public User findUserById(Integer userId) throws UserException {
 
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
             return user.get();
         }
-        throw new Exception("user not exist with user id "+userId);
+        throw new UserException("user not exist with user id "+userId);
 
     }
 
@@ -52,7 +53,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User followUser(Integer reqUserId, Integer userId2) throws Exception {
+    public User followUser(Integer reqUserId, Integer userId2) throws UserException {
 
         User reqUser = findUserById(reqUserId);
 
@@ -68,10 +69,10 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User updateUser(User user, Integer userId) throws Exception {
+    public User updateUser(User user, Integer userId) throws UserException {
         Optional<User> user1=userRepository.findById(userId);
         if (user1.isEmpty()){
-            throw new Exception("user not exist with is"+userId);
+            throw new UserException("user not exist with is"+userId);
         }
         User oldUser=user1.get();
         if(user.getFirstName()!=null){

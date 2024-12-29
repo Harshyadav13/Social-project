@@ -1,5 +1,7 @@
 package com.social.service;
 
+import com.social.exception.ChatException;
+import com.social.exception.MessageException;
 import com.social.models.Chat;
 import com.social.models.Message;
 import com.social.models.User;
@@ -23,7 +25,7 @@ public class MessageServiceImplementation implements MessageService {
             @Autowired
             private ChatRepository chatRepository;
 
-            public Message createMessage(User user, Integer chatId, Message req) throws Exception {
+            public Message createMessage(User user, Integer chatId, Message req) throws MessageException, ChatException {
 
                 Message message = new Message();
 
@@ -43,7 +45,7 @@ public class MessageServiceImplementation implements MessageService {
                 return savedMessage ;
             }
 
-            public List<Message> findChatsMessages(Integer chatId) throws Exception {
+            public List<Message> findChatsMessages(Integer chatId) throws MessageException, ChatException {
 
                 Chat chat = chatService.findChatById(chatId);
 

@@ -1,5 +1,7 @@
 package com.social.service;
 
+import com.social.exception.ReelsException;
+import com.social.exception.UserException;
 import com.social.models.Reels;
 import com.social.models.User;
 import com.social.repository.ReelsRepository;
@@ -36,7 +38,7 @@ public class ReelsServiceImplementation implements ReelsService{
     }
 
     @Override
-    public List<Reels> findUsersReel(Integer userId) throws Exception {
+    public List<Reels> findUsersReel(Integer userId) throws ReelsException, UserException {
         userService.findUserById(userId);
         return reelsRepository.findByUserId(userId);
     }

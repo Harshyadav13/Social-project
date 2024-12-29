@@ -1,5 +1,7 @@
 package com.social.controller;
 
+import com.social.exception.ReelsException;
+import com.social.exception.UserException;
 import com.social.models.Reels;
 import com.social.models.User;
 import com.social.service.ReelsService;
@@ -35,7 +37,7 @@ public class ReelsController {
             }
 
     @GetMapping("/api/reels/user/{userId}")
-    public List<Reels> findUsersReels(@PathVariable Integer userId) throws Exception {
+    public List<Reels> findUsersReels(@PathVariable Integer userId) throws ReelsException, UserException {
         List<Reels> reels = reelsService.findUsersReel(userId);
         return reels;
     }

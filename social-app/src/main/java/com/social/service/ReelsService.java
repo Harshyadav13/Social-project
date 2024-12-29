@@ -1,5 +1,7 @@
 package com.social.service;
 
+import com.social.exception.ReelsException;
+import com.social.exception.UserException;
 import com.social.models.Reels;
 import com.social.models.User;
 
@@ -11,5 +13,5 @@ public interface ReelsService {
 
     public List<Reels> findAllReels();
 
-    public List<Reels> findUsersReel(Integer userId) throws Exception;
+    public List<Reels> findUsersReel(Integer userId) throws ReelsException, UserException;
 }

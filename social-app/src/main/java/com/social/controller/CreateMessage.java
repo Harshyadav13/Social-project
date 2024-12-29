@@ -1,5 +1,7 @@
 package com.social.controller;
 
+import com.social.exception.ChatException;
+import com.social.exception.MessageException;
 import com.social.models.Message;
 import com.social.models.User;
 import com.social.service.MessageService;
@@ -19,7 +21,7 @@ public class CreateMessage {
     private UserService userService;
 
     @PostMapping("/api/messages/chat/{chatId}")
-    public Message createMessage(@RequestBody Message req, @RequestHeader("Authorization") String jwt, @PathVariable Integer chatId) throws Exception {
+    public Message createMessage(@RequestBody Message req, @RequestHeader("Authorization") String jwt, @PathVariable Integer chatId) throws MessageException, ChatException {
 
         User user = userService.findUserByJwt(jwt);
         Message message = messageService.createMessage(user, chatId, req);
@@ -27,7 +29,7 @@ public class CreateMessage {
     }
 
     @GetMapping("/api/messages/chat/{chatId}")
-    public List<Message> createMessage(@RequestHeader("Authorization") String jwt, @PathVariable Integer chatId) throws Exception {
+    public List<Message> createMessage(@RequestHeader("Authorization") String jwt, @PathVariable Integer chatId) throws MessageException, ChatException {
 
         User user = userService.findUserByJwt(jwt);
 

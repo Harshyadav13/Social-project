@@ -1,5 +1,8 @@
 package com.social.service;
 
+import com.social.exception.CommentException;
+import com.social.exception.PostException;
+import com.social.exception.UserException;
 import com.social.models.Comment;
 import com.social.models.Post;
 import com.social.models.User;
@@ -28,7 +31,7 @@ public class CommentServiceImplementation implements CommentService {
     private PostRepository postRepository;
 
     @Override
-    public Comment createComment(Comment comment, Integer postId, Integer userId) throws Exception{
+    public Comment createComment(Comment comment, Integer postId, Integer userId) throws CommentException, UserException, PostException {
 
         User user = userService.findUserById(userId);
 
@@ -48,17 +51,17 @@ public class CommentServiceImplementation implements CommentService {
     }
 
     @Override
-    public Comment findCommentById(Integer commentId) throws Exception {
+    public Comment findCommentById(Integer commentId) throws CommentException {
         Optional<Comment> opt = commentRepository.findById(commentId);
 
         if(opt.isEmpty()) {
-            throw new Exception("comment not exist");
+            throw new CommentException("comment not exist");
         }
         return opt.get();
     }
 
     @Override
-    public Comment likeComment(Integer CommentId, Integer userId) throws Exception {
+    public Comment likeComment(Integer CommentId, Integer userId) throws CommentException, UserException {
 
         Comment comment = findCommentById(CommentId);
         User user = userService.findUserById(userId);

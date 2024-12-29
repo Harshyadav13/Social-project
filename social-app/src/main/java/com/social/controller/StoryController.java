@@ -1,5 +1,7 @@
 package com.social.controller;
 
+import com.social.exception.StoryException;
+import com.social.exception.UserException;
 import com.social.models.Story;
 import com.social.models.User;
 import com.social.service.StoryService;
@@ -29,7 +31,7 @@ public class StoryController {
     }
 
     @GetMapping("/api/story/user/{userId}")
-    public List<Story> findUsersStory(@PathVariable Integer userId, @RequestHeader("Authorization") String jwt) throws Exception {
+    public List<Story> findUsersStory(@PathVariable Integer userId, @RequestHeader("Authorization") String jwt) throws StoryException, UserException {
 
         User reqUser = userService.findUserByJwt(jwt);
 

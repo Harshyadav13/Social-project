@@ -1,5 +1,7 @@
 package com.social.controller;
 
+import com.social.exception.ChatException;
+import com.social.exception.UserException;
 import com.social.models.Chat;
 import com.social.models.User;
 import com.social.request.CreateChatRequest;
@@ -20,7 +22,7 @@ public class ChatController {
     private UserService userService;
 
     @PostMapping("/api/chats")
-    public Chat createChat (@RequestHeader("Authorization") String jwt, @RequestBody CreateChatRequest req) throws Exception {
+    public Chat createChat (@RequestHeader("Authorization") String jwt, @RequestBody CreateChatRequest req) throws ChatException, UserException {
 
         User reqUser = userService.findUserByJwt(jwt);
         User user2 = userService.findUserById(req.getUserId());
